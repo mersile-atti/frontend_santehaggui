@@ -1,5 +1,5 @@
 import axios from "axios"
 
 export default axios.create({
-    baseURL: 'https://backend-server-santehaggui.omamcollection.shop/api'
+    baseURL: 'https://santehaggui-b8e92b22721c.herokuapp.com/api'
 })
