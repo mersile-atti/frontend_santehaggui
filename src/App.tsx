@@ -5,14 +5,11 @@ import ProfileGrid from "./components/ProfileGrid";
 function App() {
   return <Grid templateAreas={{
     base: `"nav" "main"`,
-    lg: `"nav nav" "aside main"`
+    lg: `"nav nav" "main main"`
   }}>
     <GridItem area="nav">
       <NavBar />
     </GridItem>
-    <Show above="lg">
-    <GridItem area="aside" bg='yellow'>Aside</GridItem>
-    </Show>
     <GridItem area="main">
       <ProfileGrid />
       </GridItem>
