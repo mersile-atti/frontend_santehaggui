@@ -11,14 +11,13 @@ interface Props {
 }
 
 const ProfileCard = ({ profile }: Props) => {
-  const [fullProfile, setFullProfile] = useState<EmergencyProfile | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchFullProfile = async () => {
       try {
-        const response = await axios.get(`/api/healthRecords/profile/${profile._id}`);
-        setFullProfile(response.data.emergencyProfiles);
+        const response = await axios.get(`/healthRecords/profile/${profile._id}`);
+        console.log(response.data.emergencyProfiles);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching full profile:', error);
