@@ -1,14 +1,33 @@
+import { useEffect, useState } from 'react';
 import { EmergencyProfile } from '../hooks/useProfiles'
 import { Box, Button, Card, CardBody, CardFooter, CardHeader, Flex, Heading, IconButton, Image, Stack, StackDivider, Text } from '@chakra-ui/react'
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { CiChat1, CiShare2 } from "react-icons/ci";
 import { SlLike } from "react-icons/sl";
+import axios from 'axios';
 
 interface Props {
     profile: EmergencyProfile
 }
 
 const ProfileCard = ({ profile }: Props) => {
+  const [fullProfile, setFullProfile] = useState<EmergencyProfile | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchFullProfile = async () => {
+      try {
+        const response = await axios.get(`/api/healthRecords/profile/${profile._id}`);
+        setFullProfile(response.data.emergencyProfiles);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching full profile:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchFullProfile();
+  }, [profile._id, axios]);
   return (
     <Card maxW='md'>
         <Heading 
@@ -45,7 +64,10 @@ const ProfileCard = ({ profile }: Props) => {
             </Flex>
         </CardHeader>
         <CardBody>
-        <Stack divider={<StackDivider />} spacing='1'>
+          {loading ? (
+            <p>Loading...</p>
+          ) :
+        (<Stack divider={<StackDivider />} spacing='1'>
       <Box>
       <Heading size='sm' textTransform='uppercase'>
           Genre
@@ -113,7 +135,7 @@ const ProfileCard = ({ profile }: Props) => {
           {profile.emergencyContactRelationship}, {profile.emergencyContactAddress}
         </Text>
       </Box>
-      </Stack>
+      </Stack>)}
         </CardBody>
         <CardFooter
     justify='space-evenly'
