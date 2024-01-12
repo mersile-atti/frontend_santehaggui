@@ -16,7 +16,7 @@ const ProfileCard = ({ profile }: Props) => {
   useEffect(() => {
     const fetchFullProfile = async () => {
       try {
-        const response = await axios.get(`/healthRecords/profile/${profile._id}`);
+        const response = await axios.get('/api/healthRecords/profile-url');
         console.log(response.data.emergencyProfiles);
         setLoading(false);
       } catch (error) {

@@ -31,7 +31,7 @@ const useProfiles = () => {
   
     useEffect(() => {
     const controller = new AbortController();
-      apiClient.get<FetchHealthRecordsProfile>('/healthRecords/profile', {signal: controller.signal})
+      apiClient.get<FetchHealthRecordsProfile>('/healthRecords/profile-url', {signal: controller.signal})
         .then(res => setEmergencyProfiles(res.data.emergencyProfiles)) // Access 'emergencyProfiles' instead of 'results'
         .catch(err => {
             if (err instanceof CanceledError) return;
